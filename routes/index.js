@@ -14,4 +14,10 @@ router.get('/quizes/question', quizController.question);
 /* Respuesta */
 router.get('/quizes/answer', quizController.answer);
 
+
+/* GET home page. */
+router.get('/author', function(req, res) {
+  res.render('author', { nombre: 'Jose Sánchez', foto: '/images/jose.png' });
+});
+
 module.exports = router;
