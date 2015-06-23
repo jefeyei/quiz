@@ -1,9 +1,18 @@
+<form method="get" action="/quizes" class="busqueda">
+  Buscar preguntas:
+  <input type="text" name="search" placeholder="Texto a buscar" value="<%= search %>"/>
+  <input type="submit" value="Buscar">
+  <% if (search !== '') { %>
+    <a href="/quizes" class="todo">Mostrar todo</a>
+  <% } %>
+</form>
+
 <table>
 <% var i; for (i=0; i < quizes.length; i++) { %>
   <tr>
     <td>
       <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
     </td>
-  </tr> 
+  </tr>
 <% } %>
 </table>
