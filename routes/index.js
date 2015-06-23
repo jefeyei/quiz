@@ -3,19 +3,21 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
 
-/* GET home page. */
+/* Home. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+/* Lista de preguntas */
+router.get('/quizes', quizController.index);
+
 /* Pregunta */
-router.get('/quizes/question', quizController.question);
+router.get('/quizes/:quizId(\\d+)', quizController.show);
 
 /* Respuesta */
-router.get('/quizes/answer', quizController.answer);
+router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
-
-/* GET home page. */
+/* Créditos */
 router.get('/author', function(req, res) {
   res.render('author', { nombre: 'Jose Sánchez', foto: '/images/jose.png' });
 });
