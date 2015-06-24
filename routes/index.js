@@ -20,6 +20,12 @@ router.get('/quizes/:quizId(\\d+)', quizController.show);
 /* Respuesta */
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
+/* Nueva pregunta */
+router.get('/quizes/new', quizController.new);
+
+/* Guardar nueva pregunta */
+router.post('/quizes/create', quizController.create);
+
 /* Créditos */
 router.get('/author', function(req, res) {
   res.render('author', { nombre: 'Jose Sánchez', foto: '/images/jose.png' });
