@@ -5,7 +5,7 @@ var quizController = require('../controllers/quiz_controller');
 
 /* Home. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Quiz' });
+  res.render('index', { title: 'Quiz', errors: [] });
 });
 
 /* Autoload de comandos con :quizId -> autoload :quizId */
@@ -28,7 +28,7 @@ router.post('/quizes/create', quizController.create);
 
 /* Créditos */
 router.get('/author', function(req, res) {
-  res.render('author', { nombre: 'Jose Sánchez', foto: '/images/jose.png' });
+  res.render('author', { nombre: 'Jose Sánchez', foto: '/images/jose.png', errors: [] });
 });
 
 module.exports = router;
