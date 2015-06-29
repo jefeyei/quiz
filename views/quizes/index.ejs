@@ -14,6 +14,15 @@
       <a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a>
     </td>
     <td>
+      <a href="quizes/<%= quizes[i].id %>" class="tema">
+        <% if (quizes[i].tema === 'otro') { %>Otro<% } %>
+        <% if (quizes[i].tema === 'humanidades') { %>Humanidades<% } %>
+        <% if (quizes[i].tema === 'ocio') { %>Ocio<% } %>
+        <% if (quizes[i].tema === 'ciencia') { %>Ciencia<% } %>
+        <% if (quizes[i].tema === 'tecnologia') { %>Tecnología<% } %>
+      </a>
+    </td>
+    <td>
       <a href="quizes/<%= quizes[i].id %>/edit"><button>Editar</button></a>
     </td>
     <td>

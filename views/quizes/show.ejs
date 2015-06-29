@@ -1,5 +1,13 @@
 <form method="get" action="/quizes/<%= quiz.id %>/answer">
-  <p>Pregunta: <%= quiz.pregunta %> </p>
+  <p>
+    Pregunta: <%= quiz.pregunta %>
+    <span class="tema">[
+    <% if (quiz.tema === 'otro') { %>Otro<% } %>
+    <% if (quiz.tema === 'humanidades') { %>Humanidades<% } %>
+    <% if (quiz.tema === 'ocio') { %>Ocio<% } %>
+    <% if (quiz.tema === 'ciencia') { %>Ciencia<% } %>
+    <% if (quiz.tema === 'tecnologia') { %>Tecnología<% } %>
+    ]</span></p>
   <input type="text" name="respuesta" placeholder="Respuesta"/>
   <input type="submit" value="Enviar">
 </form>
