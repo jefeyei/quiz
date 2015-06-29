@@ -75,7 +75,7 @@ exports.create = function(req, res) {
           })
       }
     }
-  );
+  ).catch(function(error) { next(error); });
 };
 
 // GET /quizes/:quizId/edit
@@ -106,5 +106,13 @@ exports.update = function(req, res) {
           })
       }
     }
-  );
+  ).catch(function(error) { next(error); });
+};
+
+// DELETE /quizes/:quizId
+exports.destroy = function(req, res) {
+  req.quiz.destroy().then( function() {
+    //res.redirect: Redirección HTTP a lista de preguntas
+    res.redirect('/quizes');
+  }).catch(function(error) { next(error); });
 };
