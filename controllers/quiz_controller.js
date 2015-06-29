@@ -59,23 +59,52 @@ exports.new = function(req, res) {
 // POST /quizes/create
 exports.create = function(req, res) {
   var quiz = models.Quiz.build( req.body.quiz );
-  var errores = quiz.validate();
-  if (errores) {
-    //se convierte en un array con la propiedad message
-    var err = new Array();
-    var i = 0;
-    for (var prop in errores) {
-      err[i] = { message: errores[prop] };
-      i++;
+  quiz
+  .validate()
+  .then(
+    function(err) {
+      if (err) {
+        res.render('quizes/new', { quiz: quiz, errors: err.errors });
+      } else {
+        // save: guarda en DB campos pregunta y respuesta de quiz
+        quiz
+        .save({fields: ["pregunta", "respuesta"]})
+        .then(function() {
+            //res.redirect: Redirección HTTP a lista de preguntas
+            res.redirect('/quizes');
+          })
+      }
     }
-    res.render('quizes/new', { quiz: quiz, errors: err });
-  } else {
-    // save: guarda en DB campos pregunta y respuesta de quiz
-    quiz
-    .save({fields: ["pregunta", "respuesta"]})
-    .then(function() {
-        //res.redirect: Redirección HTTP a lista de preguntas
-        res.redirect('/quizes');
-      })
-  }
+  );
+};
+
+// GET /quizes/:quizId/edit
+exports.edit = function(req, res) {
+  // req.quiz: autoload de instancia de quiz
+  var quiz = req.quiz;
+  res.render('quizes/edit', { quiz: quiz, errors: [] });
+};
+
+// PUT /quizes/:quizId
+exports.update = function(req, res) {
+  req.quiz.pregunta  = req.body.quiz.pregunta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+
+  req.quiz
+  .validate()
+  .then(
+    function(err) {
+      if (err) {
+        res.render('quizes/edit', { quiz: req.quiz, errors: err.errors });
+      } else {
+        // save: guarda en DB campos pregunta y respuesta de quiz
+        req.quiz
+        .save({fields: ["pregunta", "respuesta"]})
+        .then(function() {
+            //res.redirect: Redirección HTTP a lista de preguntas
+            res.redirect('/quizes');
+          })
+      }
+    }
+  );
 };

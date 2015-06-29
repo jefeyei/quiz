@@ -26,6 +26,12 @@ router.get('/quizes/new', quizController.new);
 /* Guardar nueva pregunta */
 router.post('/quizes/create', quizController.create);
 
+/* Editar `regunta */
+router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
+
+/* Guardar editar pregunta */
+router.put('/quizes/:quizId(\\d+)', quizController.update);
+
 /* Créditos */
 router.get('/author', function(req, res) {
   res.render('author', { nombre: 'Jose Sánchez', foto: '/images/jose.png', errors: [] });
