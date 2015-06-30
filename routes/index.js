@@ -36,19 +36,19 @@ router.get('/quizes/:quizId(\\d+)', quizController.show);
 router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
 
 /* Nueva pregunta */
-router.get('/quizes/new', quizController.new);
+router.get('/quizes/new', sessionController.loginRequired, quizController.new);
 
 /* Guardar nueva pregunta */
-router.post('/quizes/create', quizController.create);
+router.post('/quizes/create', sessionController.loginRequired, quizController.create);
 
 /* Editar pregunta */
-router.get('/quizes/:quizId(\\d+)/edit', quizController.edit);
+router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizController.edit);
 
 /* Guardar editar pregunta */
-router.put('/quizes/:quizId(\\d+)', quizController.update);
+router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.update);
 
 /* Borrar pregunta */
-router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
+router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.destroy);
 
 /* RUTAS DE COMENTARIOS */
 
