@@ -13,6 +13,9 @@ router.get('/', function(req, res) {
 /* Autoload de comandos con :quizId -> autoload :quizId */
 router.param('quizId', quizController.load);
 
+/* Autoload :commentId */
+router.param('commentId', commentController.load);
+
 /* RUTAS DE SESIÓN */
 
 /* Login */
@@ -57,6 +60,10 @@ router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 
 /* Guardar nuevo comentario */
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+
+/* Publicar comentario */
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
+	          sessionController.loginRequired, commentController.publish);
 
 /* OTRAS RUTAS */
 
