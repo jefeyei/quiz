@@ -14,5 +14,6 @@ form.busqueda { text-align: center; margin-bottom: 10px; }
 .centrado { width: 100%; text-align: center; margin-bottom: 10px; }
 a.todo { font-size: medium; }
 
-#ErrorMsgs           { color: #f61; font-size: smaller; }
+#ErrorMsgs { color: #f61; font-size: smaller; }
 .tema { color: grey; font-weight: bold; font-size: small; text-decoration: none; }
+.right { float: right; }

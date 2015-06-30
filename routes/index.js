@@ -3,6 +3,7 @@ var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
+var sessionController = require('../controllers/session_controller');
 
 /* Home. */
 router.get('/', function(req, res) {
@@ -11,6 +12,19 @@ router.get('/', function(req, res) {
 
 /* Autoload de comandos con :quizId -> autoload :quizId */
 router.param('quizId', quizController.load);
+
+/* RUTAS DE SESIÓN */
+
+/* Login */
+router.get('/login',  sessionController.new);
+
+/* Crear sesión */
+router.post('/login', sessionController.create);
+
+/* Destruir sesión */
+router.get('/logout', sessionController.destroy);
+
+/* RUTAS DE PREGUNTAS */
 
 /* Lista de preguntas */
 router.get('/quizes', quizController.index);
@@ -36,11 +50,15 @@ router.put('/quizes/:quizId(\\d+)', quizController.update);
 /* Borrar pregunta */
 router.delete('/quizes/:quizId(\\d+)', quizController.destroy);
 
+/* RUTAS DE COMENTARIOS */
+
 /* Nuevo comentario */
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 
 /* Guardar nuevo comentario */
 router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+
+/* OTRAS RUTAS */
 
 /* Créditos */
 router.get('/author', function(req, res) {
