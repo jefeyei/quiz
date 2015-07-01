@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var quizController = require('../controllers/quiz_controller');
+var statisticsController = require('../controllers/statistics_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
 
@@ -68,6 +69,11 @@ router.put('/quizes/:quizId(\\d+)',
 router.delete('/quizes/:quizId(\\d+)',
               sessionController.controlTiempoDeSesion, sessionController.loginRequired,
               quizController.destroy);
+
+/* Estadísticas */
+router.get('/quizes/statistics',
+              sessionController.controlTiempoDeSesion,
+              statisticsController.show);
 
 /* RUTAS DE COMENTARIOS */
 
