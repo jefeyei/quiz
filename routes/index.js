@@ -30,40 +30,61 @@ router.get('/logout', sessionController.destroy);
 /* RUTAS DE PREGUNTAS */
 
 /* Lista de preguntas */
-router.get('/quizes', quizController.index);
+router.get('/quizes',
+            sessionController.controlTiempoDeSesion,
+            quizController.index);
 
 /* Pregunta */
-router.get('/quizes/:quizId(\\d+)', quizController.show);
+router.get('/quizes/:quizId(\\d+)',
+            sessionController.controlTiempoDeSesion,
+            quizController.show);
 
 /* Respuesta */
-router.get('/quizes/:quizId(\\d+)/answer', quizController.answer);
+router.get('/quizes/:quizId(\\d+)/answer',
+            sessionController.controlTiempoDeSesion,
+            quizController.answer);
 
 /* Nueva pregunta */
-router.get('/quizes/new', sessionController.loginRequired, quizController.new);
+router.get('/quizes/new',
+            sessionController.controlTiempoDeSesion, sessionController.loginRequired,
+            quizController.new);
 
 /* Guardar nueva pregunta */
-router.post('/quizes/create', sessionController.loginRequired, quizController.create);
+router.post('/quizes/create',
+            sessionController.controlTiempoDeSesion, sessionController.loginRequired,
+            quizController.create);
 
 /* Editar pregunta */
-router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizController.edit);
+router.get('/quizes/:quizId(\\d+)/edit',
+            sessionController.controlTiempoDeSesion, sessionController.loginRequired,
+            quizController.edit);
 
 /* Guardar editar pregunta */
-router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.update);
+router.put('/quizes/:quizId(\\d+)',
+            sessionController.controlTiempoDeSesion, sessionController.loginRequired,
+            quizController.update);
 
 /* Borrar pregunta */
-router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizController.destroy);
+router.delete('/quizes/:quizId(\\d+)',
+              sessionController.controlTiempoDeSesion, sessionController.loginRequired,
+              quizController.destroy);
 
 /* RUTAS DE COMENTARIOS */
 
 /* Nuevo comentario */
-router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
+router.get('/quizes/:quizId(\\d+)/comments/new',
+            sessionController.controlTiempoDeSesion,
+            commentController.new);
 
 /* Guardar nuevo comentario */
-router.post('/quizes/:quizId(\\d+)/comments', commentController.create);
+router.post('/quizes/:quizId(\\d+)/comments',
+            sessionController.controlTiempoDeSesion,
+            commentController.create);
 
 /* Publicar comentario */
 router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish',
-	          sessionController.loginRequired, commentController.publish);
+	          sessionController.controlTiempoDeSesion, sessionController.loginRequired,
+            commentController.publish);
 
 /* OTRAS RUTAS */
 

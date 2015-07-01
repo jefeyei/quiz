@@ -12,6 +12,7 @@
         media='only screen and (max-width: 480px)'
         href='/stylesheets/smartphone.css' />
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <script type="text/javascript" src="/javascripts/utilidades.js"></script>
 </head>
 
 <body>
@@ -44,10 +45,17 @@
   </section>
 
   <footer class="main" id="f1">
-    <a href="http://es.wikipedia.org/wiki/Quiz">
-      ¿Que es un Quiz?</a>
-      <a href="https://github.com/jefeyei/quiz">Proyecto en GitHub</a>
+    <a href="http://es.wikipedia.org/wiki/Quiz">¿Que es un Quiz?</a>
+    <a href="https://github.com/jefeyei/quiz">Proyecto en GitHub</a>
+    <% if (session.user && session.momento) { %>
+      <span class="right momento rem" id="momento"></span>
+    <% } %>
   </footer>
 </div>
+<% if (session.user && session.momento) { %>
+<script type="text/javascript">
+  document.getElementById("momento").innerHTML = formatearFecha(<%= session.momento %>);
+</script>
+<% } %>
 </body>
 </html>

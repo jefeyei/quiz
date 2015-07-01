@@ -33,6 +33,9 @@ app.use(function(req, res, next) {
   // guardar path en session.redir para despues de login
   if (!req.path.match(/\/login|\/logout/)) {
     req.session.redir = req.path;
+    //Tambien guardamos el momento actual y anterior
+    req.session.momentoAnterior = req.session.momento;
+    req.session.momento = new Date().getTime();
   }
 
   // Hacer visible req.session en las vistas
@@ -74,6 +77,5 @@ app.use(function(err, req, res, next) {
         errors: []
     });
 });
-
 
 module.exports = app;

@@ -1,5 +1,25 @@
+var dosMinutos = 2 * 60 * 1000;
+
 // MW de autorización de accesos HTTP restringidos
-exports.loginRequired = function(req, res, next){
+exports.controlTiempoDeSesion = function(req, res, next) {
+  if (req.session.user) {
+    //Si tiene sesión activa, controlamos el tiempo
+    if ((req.session.momento - req.session.momentoAnterior) < dosMinutos) {
+      next();
+    } else {
+      //Borramos los datos de sesión
+      borrarDatosDeSesion(req);
+      //Redirigimos al login
+      res.redirect('/login');
+    }
+  } else {
+    //Si no tiene sesión activa, que continúe
+    next();
+  }
+};
+
+// MW de autorización de accesos HTTP restringidos
+exports.loginRequired = function(req, res, next) {
     if (req.session.user) {
         next();
     } else {
@@ -33,14 +53,26 @@ exports.create = function(req, res) {
         // La sesión se define por la existencia de:    req.session.user
         req.session.user = { id: user.id, username: user.username};
 
+        //Inicializamos los momentos de sesión
+        req.session.momento = new Date().getTime();
+        req.session.momentoAnterior = req.session.momento;
+
         // redirección a path anterior a login
         res.redirect(req.session.redir.toString());
     });
 };
 
+function borrarDatosDeSesion(req) {
+  delete req.session.user;
+  delete req.session.momento;
+  delete req.session.momentoAnterior;
+}
+
 // DELETE /logout - Destruir sesion
 exports.destroy = function(req, res) {
-    delete req.session.user;
+    //Borramos los datos de sesión
+    borrarDatosDeSesion(req);
+
     // redirección a path anterior a login
     res.redirect(req.session.redir.toString());
 };
